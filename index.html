@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Code Quiz</title>
+</head>
+<body>
+    
+    <!--View HighScores and time.-->
+    <header>
+        <!--Button shows you highscores.-->
+        <nav>
+            View HighScore
+        </nav>
+
+        <!--Shows you how much time is left.-->
+        <div>
+            Time: 0
+        </div>
+
+    </header>
+
+
+
+    <main>
+    
+            <!--Coding Quiz Challenge starting.-->
+            <section id="quiz-start-section">
+                <h1>Coding Quiz Challenge</h1>
+                <p>
+                    Try to answer the following code-related questions within the time limit.
+                    Keep in mind that incorrect answers will penalize your score/time
+                    by ten seconds!
+                </p>
+                <button class="first-btn" id="start-quiz-btn">Start Quiz</button>
+            </section>
+    
+    
+            <!--Question-->
+            <section id="question-format">
+                    <ol>
+                        <h2>empty</h2>
+                        <button class="first-btn">
+                            <li>empty</li>
+                        </button>
+                        <button class="first-btn">
+                            <li>empty</li>
+                        </button>
+                        <button class="first-btn">
+                            <li>empty</li>
+                        </button>
+                        <button class="first-btn">
+                            <li>empty</li>
+                        </button>
+                    </ol>
+            </section>
+            
+
+            <!--All Done-->
+            <section id="all-done">
+                <h2>All Done!</h2>
+                    <div>Your final score is 0.</div>
+                    <div>
+                        Enter initials: 
+                        <input type="text" name="initials" id="initials">
+                        <button class="second-btn">Submit</button>
+                    </div>
+            </section>
+
+            <!--HighScores-->
+            <section id="high-scores">
+                <h2>HighScores</h2>
+                <ol>
+                </ol>
+                <div>
+                    <button class="second-btn">Go back</button>
+                    <button class="second-btn">Clear HighScores</button>
+                </div>
+            </section>
+
+
+
+            <!--Wrong or Correct check-->
+            <div id="check"></div>
+
+    </main>
+
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
