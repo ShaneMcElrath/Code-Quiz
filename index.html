@@ -40,39 +40,39 @@
     
             <!--Question-->
             <section id="question-format">
-                    <ol>
-                        <h2>empty</h2>
-                        <button class="first-btn">
-                            <li>empty</li>
-                        </button>
-                        <button class="first-btn">
-                            <li>empty</li>
-                        </button>
-                        <button class="first-btn">
-                            <li>empty</li>
-                        </button>
-                        <button class="first-btn">
-                            <li>empty</li>
-                        </button>
-                    </ol>
+                        <h2 id="question"></h2>
+                        <ol>
+                            <button class="first-btn">
+                                <li id="ans1"></li>
+                            </button>
+                            <button class="first-btn">
+                                <li id="ans2"></li>
+                            </button>
+                            <button class="first-btn">
+                                <li id="ans3"></li>
+                            </button>
+                            <button class="first-btn">
+                                <li id="ans4"></li>
+                            </button>
+                        </ol>
             </section>
             
 
             <!--All Done-->
             <section id="all-done">
                 <h2>All Done!</h2>
-                    <div>Your final score is 0.</div>
+                    <div id="final-score-display">Your final score is 0.</div>
                     <div>
                         Enter initials: 
-                        <input type="text" name="initials" id="initials">
-                        <button class="second-btn">Submit</button>
+                        <input type="text" name="initial" id="initials">
+                        <button class="second-btn submit">Submit</button>
                     </div>
             </section>
 
             <!--HighScores-->
             <section id="high-scores">
                 <h2>HighScores</h2>
-                <ol>
+                <ol id="high-score-list">
                 </ol>
                 <div>
                     <button class="second-btn">Go back</button>
