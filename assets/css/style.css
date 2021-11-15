@@ -1,1 +1,152 @@
 
+/*
+01 Header
+02 Main
+03 Buttons
+04 Wrong or Correct check
+05 Quiz start section
+06 Question section
+07 All Done section
+08 HighScores
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 25px;
+}
+
+
+
+/*01 Header*/
+header {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 27.5px;
+}
+
+nav {
+    color: rgb(129, 0, 180);
+}
+/*end 01 Header*/
+
+
+
+/*02 Main*/
+main {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+section {
+    display: block;
+    width: 50%;
+}
+
+h1, h2 {
+    font-size: 45px;
+}
+/*end 02 Main*/
+
+/*03 Buttons*/
+.first-btn {
+    border: none;
+    color: white;
+    background-color: rgb(81, 0, 134);
+    height: 50px;
+    width: 150px;
+    border-radius: 10px;
+    font-size: 25px;
+}
+
+.second-btn {
+    border: none;
+    color: white;
+    background-color: rgb(81, 0, 134);
+    border-radius: 7px;
+    padding: 6px;
+    font-size: 20px;
+    height: 35px;
+}
+
+button:hover  {
+    background-color: rgb(129, 0, 180);
+}
+/*end 03 Buttons*/
+
+/*04 Wrong or Correct check*/
+#check {
+    color: rgba(128, 128, 128, 0.548);
+}
+/*end 04 Wrong or Correct check*/
+
+
+
+/*05 Quiz start section*/
+#quiz-start-section {
+    text-align: center;
+}
+
+#quiz-start-section p {
+    margin: 30px 0px;
+}
+/*end 05 Quiz start section*/
+
+/*06 Question-format section*/
+#question-format h2 {
+    margin-bottom: 20px;
+} 
+
+#question-format button{
+    padding-left: 45px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-basis: 9000;
+    align-items: center;
+}
+
+#question-format, #all-done {
+    border-bottom: solid rgba(128, 128, 128, 0.548) 1px;
+}
+/*end 06 question-format section*/
+
+/*07 All Done section*/
+#all-done h2 {
+    margin-bottom: 10px;
+} 
+
+#all-done div {
+    font-size: 33px;
+    margin-bottom: 10px;
+    width: 450px;
+    display:flex;
+    justify-content: space-between;
+}
+
+input {
+    height: 35px;
+    width: 150px;
+    border: solid black 1px;
+    border-radius: 0px;
+    align-items: center;
+    font-size: 33px;
+}
+/*end 07 All Done section*/
+
+/*08 HighScores*/
+#high-scores ol {
+    padding: 5px;
+    padding-left: 40px;
+    margin: 15px 0;
+    background-color: rgba(117, 0, 98, 0.425);
+}
+/*end 08 HighScores*/
