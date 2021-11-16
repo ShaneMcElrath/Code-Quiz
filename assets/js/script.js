@@ -3,9 +3,12 @@ var quizStartSection = document.querySelector("#quiz-start-section");
 var questionFormat = document.querySelector("#question-format");
 var allDone = document.querySelector("#all-done");
 var highScore = document.querySelector("#high-scores");
+var header = document.querySelector("header");
+
 
 //question format parts
 var question = document.querySelector("#question");
+var questionList = document.querySelector("#question-list")
 var answer1 = document.querySelector("#ans1");
 var answer2 = document.querySelector("#ans2");
 var answer3 = document.querySelector("#ans3");
@@ -15,16 +18,22 @@ var answer4 = document.querySelector("#ans4");
 //buttons
 var startQuizBtn = document.querySelector("#start-quiz-btn");
 var submitInitial = document.querySelector(".submit");
-
+var goBackBtn = document.querySelector("#go-back");
+var clearHighScores = document.querySelector("#clear-high-scores");
+var viewHighScore = document.querySelector("#view-high-score");
 
 
 //keep track
 var highscorelist = document.querySelector("#high-score-list");
-var high;
+var check = document.querySelector("#check");
+var currentTimeDisplay = document.querySelector("#current-time-display");
+
+var clock;
 var initial;
 var initialsList = [];
-var check = document.querySelector("#check");
-var time = 70;
+var highScores = [];
+var finaltime;
+var time;
 var questionNum = 0;
 var questioninfo = [
     ["Commonly used data types Do Not Include:", "strings", "booleans", "alerts", "numbers", "alerts"],
@@ -36,12 +45,20 @@ var questioninfo = [
 
 
 
-//hide all sections except Start quiz section.
-questionFormat.style.display = "none";
-allDone.style.display = "none";
-highScore.style.display = "none";
 
 
+var displayStartQuizSection = function() {
+
+    time = 70;
+    currentTimeDisplay.innerHTML = "Time: " + time;
+
+    quizStartSection.style.display = "block";
+    header.style.display = "flex";
+    questionFormat.style.display = "none";
+    allDone.style.display = "none";
+    highScore.style.display = "none";
+    questionNum = 0;
+}
 
 //hide start quiz section and display queston format section.
 var startQuiz = function() {
@@ -50,11 +67,15 @@ var startQuiz = function() {
     populateQuestionFormat();
 
     questionFormat.style.display = "block";
+
+    clock = setInterval(countDown, 1000);
 }
 
 var checkanswer = function(event) {
     var answer = event.target;
-    if (answer.innerHTML === questioninfo[questionNum][5] || answer.querySelector('li').innerHTML === questioninfo[questionNum][5]) {
+    console.log(answer.innerHTML);
+
+    if (answer.innerHTML == questioninfo[questionNum][5] || answer.innerHTML == "<li>" + questioninfo[questionNum][5] + "</li>") {
         check.innerHTML = "Correct!";
     }
     else if (answer.querySelector('button')) {
@@ -63,6 +84,7 @@ var checkanswer = function(event) {
     else {
         check.innerHTML = "Wrong!";
         time -= 10;
+        currentTimeDisplay.innerHTML = "Time: " + time;
     }
 
     questionNum += 1;
@@ -70,50 +92,136 @@ var checkanswer = function(event) {
         populateQuestionFormat();
     }
     else {
-        questionFormat.style.display = "none";
-        allDone.style.display = "block";
-        document.querySelector("#final-score-display").innerHTML = "Your final score is " + time + ".";
+        displayAllDone();
     }
 };
 
-
 var populateQuestionFormat = function() {
     question.innerHTML = questioninfo[questionNum][0];
-    answer1.innerHTML = questioninfo[questionNum][1];
-    answer2.innerHTML = questioninfo[questionNum][2];
-    answer3.innerHTML = questioninfo[questionNum][3];
-    answer4.innerHTML = questioninfo[questionNum][4];
+    answer1.innerHTML = "<li>" + questioninfo[questionNum][1] + "</li>";
+    answer2.innerHTML = "<li>" + questioninfo[questionNum][2] + "</li>";
+    answer3.innerHTML = "<li>" + questioninfo[questionNum][3] + "</li>";
+    answer4.innerHTML = "<li>" + questioninfo[questionNum][4] + "</li>";
 }
 
-var storeHighScore = function() {
-    initial = document.querySelector("input[name='initial']").value;
+var displayHighScoresection = function() {
+
+    while(highscorelist.lastElementChild) {
+        highscorelist.querySelector("li").remove();
+    }
+
+    clearInterval(clock);
+    
+    quizStartSection.style.display = "none";
+    header.style.display = "none";
+    questionFormat.style.display = "none";
     allDone.style.display = "none";
+    check.style.display = "none";
     highScore.style.display = "block";
-    console.log(initial);
-    loadInitials();
+
+    loadHighScores();
 }
 
-var loadInitials = function() {
-    initialsList = localStorage.getItem("initials");
+//Sorts and loads highscores.
+var loadHighScores = function() {
+    initial = document.querySelector("input[name='initial']").value;
+
+    if (!initial && finaltime) {
+        return;
+    }
+    if (!finaltime && initial) {
+        return;
+    }
+
+    initialsList = getAddSetLocalStorage(initialsList, "initials", initial);
+    highScores = getAddSetLocalStorage(highScores, "highkey", finaltime);
+    document.querySelector("input[name='initial']").value = '';
+    finaltime = '';
     
     if (initialsList) {
-        initialsList = JSON.parse(initialsList);
-        initialsList.push(initial);
-    }
-    else {
-        initialsList = [initial];
-    }
-    
-    localStorage.setItem("initials", JSON.stringify(initialsList));
+        //Sorts highscores form greatest to least.
+        for (var i = 0; i < initialsList.length; i++) {
+            for (var k = i + 1; k < initialsList.length; k++) {
+                if (highScores[i] < highScores[k]) {
+                    var x = highScores[i];
+                    var y = initialsList[i];
+                    highScores[i] = highScores[k];
+                    initialsList[i] = initialsList[k];
+                    highScores[k] = x;
+                    initialsList[k] = y;
+                }
+            }
+        }
 
-    for (var i = 0; i < initialsList.length; i++) {
-        var highscore = document.createElement("li");
-        highscore.innerHTML = initialsList[i];
-        highscorelist.appendChild(highscore);
+        //Displays highscores
+        for (var i = 0; i < initialsList.length; i++) {
+            var displayScoreItem = document.createElement("li");
+            displayScoreItem.innerHTML = initialsList[i] + " " + highScores[i];
+            highscorelist.appendChild(displayScoreItem);
+        }
+    }
+}
+
+var getAddSetLocalStorage = function(itemList, key, item) {
+    itemList = localStorage.getItem(key);
+
+    if (!item && itemList) {
+        itemList = JSON.parse(itemList);
+    }
+    else if(itemList) {
+        itemList = JSON.parse(itemList);
+        itemList.push(item);
+    }
+    else if (item) {
+        itemList = [item];
+    }
+
+    if (itemList) {
+        localStorage.setItem(key, JSON.stringify(itemList));
+
+    return itemList;
+    }
+}
+
+var displayAllDone = function() {
+    questionFormat.style.display = "none";
+    allDone.style.display = "block";
+    clearInterval(clock);
+    finaltime = time;
+    if (!time || time < 0){
+        finaltime = "0";
+        time = 0;
+        currentTimeDisplay.innerHTML = "Time: " + time;
+    }
+    document.querySelector("#final-score-display").innerHTML = "Your final score is " + time + ".";
+}
+
+var clearLocal = function() {
+    localStorage.clear();
+    highscorelist.innerHTML = "";
+}
+
+var countDown = function() {
+    time--;
+    currentTimeDisplay.innerHTML = "Time: " + time;
+    if (time < 1) {
+        clearInterval(clock);
+        displayAllDone();
     }
 }
 
 
+
+
+
+
+
+displayStartQuizSection();
+
 startQuizBtn.addEventListener("click", startQuiz);
-questionFormat.addEventListener("click", checkanswer);
-submitInitial.addEventListener("click", storeHighScore);
+questionList.addEventListener("click", checkanswer);
+submitInitial.addEventListener("click", displayHighScoresection);
+goBackBtn.addEventListener("click", displayStartQuizSection);
+clearHighScores.addEventListener("click", clearLocal);
+viewHighScore.addEventListener("click", displayHighScoresection);
+

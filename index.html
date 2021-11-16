@@ -11,12 +11,12 @@
     <!--View HighScores and time.-->
     <header>
         <!--Button shows you highscores.-->
-        <nav>
+        <nav id="view-high-score">
             View HighScore
         </nav>
 
         <!--Shows you how much time is left.-->
-        <div>
+        <div id="current-time-display">
             Time: 0
         </div>
 
@@ -40,21 +40,13 @@
     
             <!--Question-->
             <section id="question-format">
-                        <h2 id="question"></h2>
-                        <ol>
-                            <button class="first-btn">
-                                <li id="ans1"></li>
-                            </button>
-                            <button class="first-btn">
-                                <li id="ans2"></li>
-                            </button>
-                            <button class="first-btn">
-                                <li id="ans3"></li>
-                            </button>
-                            <button class="first-btn">
-                                <li id="ans4"></li>
-                            </button>
-                        </ol>
+                <h2 id="question"></h2>
+                <ol id="question-list">
+                    <button class="first-btn" id="ans1"></button>
+                    <button class="first-btn" id="ans2"></button>
+                    <button class="first-btn" id="ans3"></button>
+                    <button class="first-btn" id="ans4"></button>
+                </ol>
             </section>
             
 
@@ -64,7 +56,7 @@
                     <div id="final-score-display">Your final score is 0.</div>
                     <div>
                         Enter initials: 
-                        <input type="text" name="initial" id="initials">
+                        <input type="text" name="initial" id="initials" value="">
                         <button class="second-btn submit">Submit</button>
                     </div>
             </section>
@@ -75,8 +67,8 @@
                 <ol id="high-score-list">
                 </ol>
                 <div>
-                    <button class="second-btn">Go back</button>
-                    <button class="second-btn">Clear HighScores</button>
+                    <button class="second-btn" id="go-back">Go back</button>
+                    <button class="second-btn" id="clear-high-scores">Clear HighScores</button>
                 </div>
             </section>
 
