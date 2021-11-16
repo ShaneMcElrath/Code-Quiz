@@ -71,6 +71,7 @@ var startQuiz = function() {
     clock = setInterval(countDown, 1000);
 }
 
+//Checks if anwser is correct or wrong and either runs populateQuestionFormat(); or runs displayAllDone();
 var checkanswer = function(event) {
     var answer = event.target;
     console.log(answer.innerHTML);
@@ -96,6 +97,7 @@ var checkanswer = function(event) {
     }
 };
 
+//Populates html with next question
 var populateQuestionFormat = function() {
     question.innerHTML = questioninfo[questionNum][0];
     answer1.innerHTML = "<li>" + questioninfo[questionNum][1] + "</li>";
@@ -104,6 +106,7 @@ var populateQuestionFormat = function() {
     answer4.innerHTML = "<li>" + questioninfo[questionNum][4] + "</li>";
 }
 
+//Displays HighScore Section
 var displayHighScoresection = function() {
 
     while(highscorelist.lastElementChild) {
@@ -162,6 +165,7 @@ var loadHighScores = function() {
     }
 }
 
+//Gets, adds to and sets, local storage.
 var getAddSetLocalStorage = function(itemList, key, item) {
     itemList = localStorage.getItem(key);
 
@@ -183,6 +187,7 @@ var getAddSetLocalStorage = function(itemList, key, item) {
     }
 }
 
+// Displays ALL Done section
 var displayAllDone = function() {
     questionFormat.style.display = "none";
     allDone.style.display = "block";
@@ -196,11 +201,13 @@ var displayAllDone = function() {
     document.querySelector("#final-score-display").innerHTML = "Your final score is " + time + ".";
 }
 
+//Clears local storage and HighScoreList.
 var clearLocal = function() {
     localStorage.clear();
     highscorelist.innerHTML = "";
 }
 
+//counts down every second and stops timer from going below zero. Runs displayAllDone(); if timer is zero.
 var countDown = function() {
     time--;
     currentTimeDisplay.innerHTML = "Time: " + time;
